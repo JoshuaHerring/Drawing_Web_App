@@ -1,0 +1,24 @@
+body{
+    margin-top: 10vh;
+    display: flex;
+    justify-content: space-around;
+}
+
+main{
+    margin: 0;
+    display: grid;
+    justify-content: space-around;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    width: 60%;
+}
+
+canvas{
+    grid-column: 1/5;
+    width: 100%;
+}
+
+button{
+    width: 50%;
+    height: 50px;
+    margin: 20px auto;
+}
