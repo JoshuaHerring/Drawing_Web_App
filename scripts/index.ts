@@ -32,6 +32,7 @@ class board {
 
   public loop(): void {
     this.fadeToBlack()
+    this.colorBar()
     this.drawOverCursor()
   }
   
@@ -92,6 +93,14 @@ class board {
     if(this.ctx){
       this.ctx.fillStyle = "#0000000a"
       this.ctx.fillRect(0, 0, this.board.clientWidth, this.board.clientHeight)
+    }
+  }
+
+  private colorBar(): void {
+
+    if (this.ctx) {
+      this.ctx.fillStyle = `rgb(${this.color.r}, ${this.color.g}, ${this.color.b})`
+      this.ctx.fillRect(0, 0, this.board.clientWidth, this.board.clientHeight * .05)
     }
   }
 

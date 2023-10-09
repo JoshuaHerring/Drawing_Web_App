@@ -23,6 +23,7 @@ class board {
     }
     loop() {
         this.fadeToBlack();
+        this.colorBar();
         this.drawOverCursor();
     }
     setMousePos(event) {
@@ -72,6 +73,12 @@ class board {
         if (this.ctx) {
             this.ctx.fillStyle = "#0000000a";
             this.ctx.fillRect(0, 0, this.board.clientWidth, this.board.clientHeight);
+        }
+    }
+    colorBar() {
+        if (this.ctx) {
+            this.ctx.fillStyle = `rgb(${this.color.r}, ${this.color.g}, ${this.color.b})`;
+            this.ctx.fillRect(0, 0, this.board.clientWidth, this.board.clientHeight * .05);
         }
     }
     drawOverCursor() {
