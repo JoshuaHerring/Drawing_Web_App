@@ -10,9 +10,9 @@ class board {
   private drawWidth: number;
   private color;
 
-  public constructor() {
+  public constructor(canvasElement: string) {
     // Gets the canvas element from html
-    this.board = <HTMLCanvasElement> document.getElementById("draw")
+    this.board = <HTMLCanvasElement> document.getElementById(canvasElement)
     // Gets the drawing context from the canvas element
     this.ctx = this.board.getContext("2d")
     // Calculates the size of the html element and it's drawing scale accordingly
@@ -122,7 +122,7 @@ class board {
 }
 
 
-let canva = new board();
+let canva = new board("draw");
   
 function loop(): void {
   canva.loop()

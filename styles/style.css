@@ -22,3 +22,13 @@ button{
     height: 50px;
     margin: 20px auto;
 }
+
+h1{
+    grid-column: 1/5;
+    text-align: center;
+}
+
+h2{
+    grid-column: 1/5;
+    text-align: center;
+}

@@ -2,10 +2,10 @@
 let widthUp = document.getElementById("increment_width");
 let widthDown = document.getElementById("decrement_width");
 class board {
-    constructor() {
+    constructor(canvasElement) {
         var _a;
         // Gets the canvas element from html
-        this.board = document.getElementById("draw");
+        this.board = document.getElementById(canvasElement);
         // Gets the drawing context from the canvas element
         this.ctx = this.board.getContext("2d");
         // Calculates the size of the html element and it's drawing scale accordingly
@@ -95,7 +95,7 @@ class board {
         }
     }
 }
-let canva = new board();
+let canva = new board("draw");
 function loop() {
     canva.loop();
     window.requestAnimationFrame(loop);
