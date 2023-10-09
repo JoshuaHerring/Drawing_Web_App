@@ -119,6 +119,11 @@ class board {
       this.last.y = this.mousePos.y
     }
   }
+
+  // Will send sparks flying from cursor
+  private sparks(): void {
+
+  }
 }
 
 

@@ -94,6 +94,9 @@ class board {
             this.last.y = this.mousePos.y;
         }
     }
+    // Will send sparks flying from cursor
+    sparks() {
+    }
 }
 let canva = new board("draw");
 function loop() {
