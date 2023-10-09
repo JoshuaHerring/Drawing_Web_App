@@ -17,9 +17,9 @@ class board {
         // A variable to hold the last current mouse position
         this.last = { x: 0, y: 0 };
         // A variable to hold the draw width
-        this.drawWidth = 1;
+        this.drawWidth = 3;
         //a variable to hold the color
-        this.color = { r: 200, g: 0, b: 0 };
+        this.color = { r: 0, g: 200, b: 0 };
     }
     loop() {
         this.fadeToBlack();
@@ -40,25 +40,16 @@ class board {
     }
     changeColor(event) {
         // console.log(event.deltaY)
-        if (this.color.r <= 255 && this.color.g == 0) {
-            this.color.r += event.deltaY;
-        }
-        if (this.color.r > 255) {
-            this.color.r = 255;
-        }
-        if (this.color.r < 200) {
-            this.color.r = 200;
-        }
-        if (this.color.r == 255 && this.color.g <= 255 && this.color.b == 0) {
+        if (this.color.g <= 255 && this.color.b == 0) {
             this.color.g += event.deltaY;
         }
         if (this.color.g > 255) {
             this.color.g = 255;
         }
-        if (this.color.g < 0) {
-            this.color.g = 0;
+        if (this.color.g < 200) {
+            this.color.g = 200;
         }
-        if (this.color.g == 255 && this.color.b <= 255) {
+        if (this.color.g == 255 && this.color.b <= 255 && this.color.r == 0) {
             this.color.b += event.deltaY;
         }
         if (this.color.b > 255) {
@@ -66,6 +57,15 @@ class board {
         }
         if (this.color.b < 0) {
             this.color.b = 0;
+        }
+        if (this.color.b == 255 && this.color.r <= 255) {
+            this.color.r += event.deltaY;
+        }
+        if (this.color.r > 255) {
+            this.color.r = 255;
+        }
+        if (this.color.r < 0) {
+            this.color.r = 0;
         }
         console.log(this.color);
     }
