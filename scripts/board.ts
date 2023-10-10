@@ -16,8 +16,9 @@ export class board {
     private effect2_active;
     private fade_rate: number;
     private fade_count: number;
-    private fadeDown;
-    private fadeUp;
+    private fadeDown_button;
+    private fadeUp_button;
+    private reset_button;
   
     public constructor(canvasElement: string) {
       window.requestAnimationFrame(this.loop.bind(this))
@@ -26,8 +27,9 @@ export class board {
       this.widthDown = document.getElementById("decrement_width")
       this.effect1 = document.getElementById("effect1")
       this.effect2 = document.getElementById("effect2")
-      this.fadeUp = document.getElementById("fade_up")
-      this.fadeDown = document.getElementById("fade_down")
+      this.fadeUp_button = document.getElementById("fade_up")
+      this.fadeDown_button = document.getElementById("fade_down")
+      this.reset_button = document.getElementById("reset")
 
       // Gets the canvas element from html
       this.board = <HTMLCanvasElement> document.getElementById(canvasElement)
@@ -70,8 +72,9 @@ export class board {
       window.addEventListener("wheel", this.changeColor.bind(this))
       this.effect1?.addEventListener("click", this.lasers.bind(this))
       this.effect2?.addEventListener("click", this.stars_active.bind(this))
-      this.fadeUp?.addEventListener("click", this.upFade.bind(this))
-      this.fadeDown?.addEventListener("click", this.downFade.bind(this))
+      this.fadeUp_button?.addEventListener("click", this.upFade.bind(this))
+      this.fadeDown_button?.addEventListener("click", this.downFade.bind(this))
+      this.reset_button?.addEventListener("click", this.reset.bind(this))
     }
   
     public loop(): void {
@@ -81,8 +84,18 @@ export class board {
       if(this.effect2_active) {
         this.stars()
       }
-  
       window.requestAnimationFrame(this.loop.bind(this))
+    }
+
+    public reset(): void {
+      this.effect1_active = false
+      this.effect2_active = false
+      this.drawWidth = 3
+      this.fade_rate = 5
+      if (this.ctx) {
+        this.ctx.fillStyle = "#000000"
+        this.ctx.fillRect(0, 0, this.board.clientWidth, this.board.clientHeight)
+      }
     }
     
     public setMousePos(event: MouseEvent) :void {
@@ -202,7 +215,7 @@ export class board {
               this.star_delay --
             } else {
               this.ctx.fillRect(x, y, 2, 2)
-              this.star_delay = Math.round((Math.random() * this.star_number) * this.fade_rate + 1)
+              this.star_delay = Math.round((Math.random() * this.star_number) * (this.fade_rate + 1))
             }
           }
         }
