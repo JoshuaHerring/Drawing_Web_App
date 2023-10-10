@@ -1,9 +1,10 @@
 "use strict";
-let widthUp = document.getElementById("increment_width");
-let widthDown = document.getElementById("decrement_width");
 class board {
     constructor(canvasElement) {
-        var _a;
+        var _a, _b, _c;
+        window.requestAnimationFrame(this.loop.bind(this));
+        this.widthUp = document.getElementById("increment_width");
+        this.widthDown = document.getElementById("decrement_width");
         // Gets the canvas element from html
         this.board = document.getElementById(canvasElement);
         // Gets the drawing context from the canvas element
@@ -20,26 +21,29 @@ class board {
         this.drawWidth = 3;
         //a variable to hold the color
         this.color = { r: 0, g: 200, b: 0 };
+        window.addEventListener("mousemove", this.setMousePos.bind(this));
+        (_b = this.widthUp) === null || _b === void 0 ? void 0 : _b.addEventListener("click", this.upDrawWidth.bind(this));
+        (_c = this.widthDown) === null || _c === void 0 ? void 0 : _c.addEventListener("click", this.downDrawWidth.bind(this));
+        window.addEventListener("wheel", this.changeColor.bind(this));
     }
     loop() {
         this.fadeToBlack();
         this.colorBar();
         this.drawOverCursor();
+        window.requestAnimationFrame(this.loop.bind(this));
     }
     setMousePos(event) {
         this.mousePos.x = event.clientX - this.board.offsetLeft;
         this.mousePos.y = event.clientY - this.board.offsetTop;
     }
     upDrawWidth() {
-        if (this.drawWidth < 5)
-            this.drawWidth++;
+        this.drawWidth++;
     }
     downDrawWidth() {
         if (this.drawWidth > 1)
             this.drawWidth--;
     }
     changeColor(event) {
-        // console.log(event.deltaY)
         if (this.color.g <= 255 && this.color.b == 0) {
             this.color.g += event.deltaY;
         }
@@ -67,7 +71,6 @@ class board {
         if (this.color.r < 0) {
             this.color.r = 0;
         }
-        console.log(this.color);
     }
     fadeToBlack() {
         if (this.ctx) {
@@ -99,13 +102,4 @@ class board {
     }
 }
 let canva = new board("draw");
-function loop() {
-    canva.loop();
-    window.requestAnimationFrame(loop);
-}
-window.addEventListener("mousemove", canva.setMousePos.bind(canva));
-widthUp === null || widthUp === void 0 ? void 0 : widthUp.addEventListener("click", canva.upDrawWidth.bind(canva));
-widthDown === null || widthDown === void 0 ? void 0 : widthDown.addEventListener("click", canva.downDrawWidth.bind(canva));
-window.addEventListener("wheel", canva.changeColor.bind(canva));
-window.requestAnimationFrame(loop);
 //# sourceMappingURL=index.js.map

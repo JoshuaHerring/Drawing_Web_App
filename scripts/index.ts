@@ -1,6 +1,3 @@
-let widthUp = document.getElementById("increment_width")
-let widthDown = document.getElementById("decrement_width")
-
 class board {
   private board;
   private ctx;
@@ -9,8 +6,15 @@ class board {
   private scale: {x: number, y: number};
   private drawWidth: number;
   private color;
+  private widthDown;
+  private widthUp
 
   public constructor(canvasElement: string) {
+    window.requestAnimationFrame(this.loop.bind(this))
+
+    this.widthUp = document.getElementById("increment_width")
+    this.widthDown = document.getElementById("decrement_width")
+
     // Gets the canvas element from html
     this.board = <HTMLCanvasElement> document.getElementById(canvasElement)
     // Gets the drawing context from the canvas element
@@ -28,12 +32,20 @@ class board {
     this.drawWidth = 3
     //a variable to hold the color
     this.color = {r: 0, g: 200, b: 0}
+
+    window.addEventListener("mousemove", this.setMousePos.bind(this));
+    this.widthUp?.addEventListener("click", this.upDrawWidth.bind(this))
+    this.widthDown?.addEventListener("click", this.downDrawWidth.bind(this))
+    window.addEventListener("wheel", this.changeColor.bind(this))
+
   }
 
   public loop(): void {
     this.fadeToBlack()
     this.colorBar()
     this.drawOverCursor()
+
+    window.requestAnimationFrame(this.loop.bind(this))
   }
   
   public setMousePos(event: MouseEvent) :void {
@@ -42,7 +54,6 @@ class board {
   }
 
   public upDrawWidth(): void {
-    if(this.drawWidth < 5)
     this.drawWidth ++
   }
 
@@ -52,7 +63,6 @@ class board {
   }
 
   public changeColor(event: WheelEvent): void {
-    // console.log(event.deltaY)
     if(this.color.g <= 255 && this.color.b == 0) {
       this.color.g += event.deltaY
     }
@@ -81,11 +91,7 @@ class board {
     }
     if (this.color.r < 0) {
       this.color.r = 0
-    }
-
-    
-    console.log(this.color)    
-    
+    }  
   }
 
   private fadeToBlack(): void {
@@ -103,7 +109,6 @@ class board {
       this.ctx.fillRect(0, 0, this.board.clientWidth, this.board.clientHeight * .05)
     }
   }
-
 
   private drawOverCursor(): void {
     if(this.ctx){
@@ -128,15 +133,3 @@ class board {
 
 
 let canva = new board("draw");
-  
-function loop(): void {
-  canva.loop()
-  window.requestAnimationFrame(loop)
-}
-
-window.addEventListener("mousemove", canva.setMousePos.bind(canva));
-widthUp?.addEventListener("click", canva.upDrawWidth.bind(canva))
-widthDown?.addEventListener("click", canva.downDrawWidth.bind(canva))
-window.addEventListener("wheel", canva.changeColor.bind(canva))
-window.requestAnimationFrame(loop)
-
