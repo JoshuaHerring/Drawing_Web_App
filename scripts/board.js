@@ -25,7 +25,7 @@ export class board {
         // A variable to hold the draw width
         this.drawWidth = 3;
         //a variable to hold the color
-        this.color = { r: 0, g: 200, b: 0 };
+        this.color = { r: 255, g: 255, b: 255 };
         this.effect1_active = false;
         this.effect2_active = false;
         this.star_delay = Math.round(Math.random() * 2000);
