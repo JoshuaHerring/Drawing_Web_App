@@ -1,6 +1,6 @@
 export class board {
     constructor(canvasElement) {
-        var _a, _b, _c, _d, _e, _f, _g, _h;
+        var _a, _b, _c, _d, _e, _f, _g, _h, _j;
         window.requestAnimationFrame(this.loop.bind(this));
         this.widthUp = document.getElementById("increment_width");
         this.widthDown = document.getElementById("decrement_width");
@@ -9,6 +9,7 @@ export class board {
         this.fadeUp_button = document.getElementById("fade_up");
         this.fadeDown_button = document.getElementById("fade_down");
         this.reset_button = document.getElementById("reset");
+        this.chaos_button = document.getElementById("chaos");
         // Gets the canvas element from html
         this.board = document.getElementById(canvasElement);
         // Gets the drawing context from the canvas element
@@ -44,6 +45,7 @@ export class board {
         (_f = this.fadeUp_button) === null || _f === void 0 ? void 0 : _f.addEventListener("click", this.upFade.bind(this));
         (_g = this.fadeDown_button) === null || _g === void 0 ? void 0 : _g.addEventListener("click", this.downFade.bind(this));
         (_h = this.reset_button) === null || _h === void 0 ? void 0 : _h.addEventListener("click", this.reset.bind(this));
+        (_j = this.chaos_button) === null || _j === void 0 ? void 0 : _j.addEventListener("click", this.chaos.bind(this));
     }
     loop() {
         this.fadeToBlack();
@@ -53,6 +55,12 @@ export class board {
             this.stars();
         }
         window.requestAnimationFrame(this.loop.bind(this));
+    }
+    chaos() {
+        this.effect1_active = true;
+        this.effect2_active = true;
+        this.drawWidth += 10000;
+        this.fade_rate = 0;
     }
     reset() {
         this.effect1_active = false;

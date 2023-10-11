@@ -19,6 +19,7 @@ export class board {
     private fadeDown_button;
     private fadeUp_button;
     private reset_button;
+    private chaos_button;
   
     public constructor(canvasElement: string) {
       window.requestAnimationFrame(this.loop.bind(this))
@@ -30,6 +31,7 @@ export class board {
       this.fadeUp_button = document.getElementById("fade_up")
       this.fadeDown_button = document.getElementById("fade_down")
       this.reset_button = document.getElementById("reset")
+      this.chaos_button = document.getElementById("chaos")
 
       // Gets the canvas element from html
       this.board = <HTMLCanvasElement> document.getElementById(canvasElement)
@@ -75,6 +77,7 @@ export class board {
       this.fadeUp_button?.addEventListener("click", this.upFade.bind(this))
       this.fadeDown_button?.addEventListener("click", this.downFade.bind(this))
       this.reset_button?.addEventListener("click", this.reset.bind(this))
+      this.chaos_button?.addEventListener("click", this.chaos.bind(this))
     }
   
     public loop(): void {
@@ -85,6 +88,13 @@ export class board {
         this.stars()
       }
       window.requestAnimationFrame(this.loop.bind(this))
+    }
+
+    public chaos(): void {
+      this.effect1_active = true
+      this.effect2_active = true
+      this.drawWidth += 10000; 
+      this.fade_rate = 0
     }
 
     public reset(): void {
