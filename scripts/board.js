@@ -1,6 +1,6 @@
 export class board {
     constructor(canvasElement) {
-        var _a, _b, _c, _d, _e, _f, _g, _h, _j;
+        var _a, _b, _c, _d, _e, _f, _g, _h;
         // Runs a loop based on the browsers refresh speed
         window.requestAnimationFrame(this.loop.bind(this));
         // Gets all the elements for the buttons and saves references to them in variables
@@ -14,12 +14,12 @@ export class board {
         this.chaos_button = document.getElementById("chaos");
         // Gets the canvas element from html (id is passed through constructor)
         this.board = document.getElementById(canvasElement);
+        // Sets the width of the board
+        this.board.width = window.innerWidth / 1.7;
+        // Sets the height of the board
+        this.board.height = window.innerHeight / 2;
         // Gets the drawing context from the canvas element
         this.ctx = this.board.getContext("2d");
-        // Calculates the size of the html element and it's drawing scale accordingly
-        this.scale = { x: this.board.width / this.board.clientWidth, y: this.board.height / this.board.clientHeight };
-        // sets the drawing context's scale to the calculated value as shown in the previous line of code
-        (_a = this.ctx) === null || _a === void 0 ? void 0 : _a.scale(this.scale.x, this.scale.y);
         // A variable to hold the current mouse position
         this.mousePos = { x: 0, y: 0 };
         // A variable to hold the last current mouse position
@@ -47,15 +47,15 @@ export class board {
         }
         // All the even listeners for the buttons and scrolling
         window.addEventListener("mousemove", this.setMousePos.bind(this));
-        (_b = this.widthUp) === null || _b === void 0 ? void 0 : _b.addEventListener("click", this.upDrawWidth.bind(this));
-        (_c = this.widthDown) === null || _c === void 0 ? void 0 : _c.addEventListener("click", this.downDrawWidth.bind(this));
+        (_a = this.widthUp) === null || _a === void 0 ? void 0 : _a.addEventListener("click", this.upDrawWidth.bind(this));
+        (_b = this.widthDown) === null || _b === void 0 ? void 0 : _b.addEventListener("click", this.downDrawWidth.bind(this));
         window.addEventListener("wheel", this.changeColor.bind(this));
-        (_d = this.effect1) === null || _d === void 0 ? void 0 : _d.addEventListener("click", this.lasers.bind(this));
-        (_e = this.effect2) === null || _e === void 0 ? void 0 : _e.addEventListener("click", this.stars_active.bind(this));
-        (_f = this.fadeUp_button) === null || _f === void 0 ? void 0 : _f.addEventListener("click", this.upFade.bind(this));
-        (_g = this.fadeDown_button) === null || _g === void 0 ? void 0 : _g.addEventListener("click", this.downFade.bind(this));
-        (_h = this.reset_button) === null || _h === void 0 ? void 0 : _h.addEventListener("click", this.reset.bind(this));
-        (_j = this.chaos_button) === null || _j === void 0 ? void 0 : _j.addEventListener("click", this.chaos.bind(this));
+        (_c = this.effect1) === null || _c === void 0 ? void 0 : _c.addEventListener("click", this.lasers.bind(this));
+        (_d = this.effect2) === null || _d === void 0 ? void 0 : _d.addEventListener("click", this.stars_active.bind(this));
+        (_e = this.fadeUp_button) === null || _e === void 0 ? void 0 : _e.addEventListener("click", this.upFade.bind(this));
+        (_f = this.fadeDown_button) === null || _f === void 0 ? void 0 : _f.addEventListener("click", this.downFade.bind(this));
+        (_g = this.reset_button) === null || _g === void 0 ? void 0 : _g.addEventListener("click", this.reset.bind(this));
+        (_h = this.chaos_button) === null || _h === void 0 ? void 0 : _h.addEventListener("click", this.chaos.bind(this));
     }
     /** The main Loop function that runs over and over calling other methods*/
     loop() {
@@ -168,20 +168,27 @@ export class board {
     /**Draws the line over the cursor */
     drawOverCursor() {
         if (this.ctx) {
+            // CHnages the draw Color
             this.ctx.strokeStyle = `rgb(${this.color.r}, ${this.color.g}, ${this.color.b})`;
+            // Changes the draw width
             this.ctx.lineWidth = this.drawWidth;
+            // Starts Drawing
             this.ctx.beginPath();
+            // sets the start pos to the last cursor pos
             this.ctx.moveTo(this.last.x, this.last.y);
+            // Sets the end pos to the current cursor pos
             this.ctx.lineTo(this.mousePos.x, this.mousePos.y);
+            // Draws the line according to the last 2 lines of codes location
             this.ctx.stroke();
+            // Ends drawing
             this.ctx.closePath();
+            // Sets the last mouse pos to the current pos
             this.last.x = this.mousePos.x;
             this.last.y = this.mousePos.y;
         }
     }
     /**Draws lasers to the screen instead of the normal draw (Sets width to 10,000) */
     lasers() {
-        // console.log(this.effect1_active)
         if (!this.effect1_active) {
             this.drawWidth += 10000;
             this.effect1_active = true;

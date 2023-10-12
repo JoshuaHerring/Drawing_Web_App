@@ -13,7 +13,7 @@ main{
 
 canvas{
     grid-column: 1/5;
-    width: 100%;
+    /* width: 100%; */
 }
 
 button{

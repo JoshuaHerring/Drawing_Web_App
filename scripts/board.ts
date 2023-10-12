@@ -4,7 +4,6 @@ export class board {
     private ctx;
     private mousePos: {x: number, y: number};
     private last: {x: number, y: number};
-    private scale: {x: number, y: number};
     private drawWidth: number;
     private color;
     private widthDown;
@@ -38,13 +37,12 @@ export class board {
 
       // Gets the canvas element from html (id is passed through constructor)
       this.board = <HTMLCanvasElement> document.getElementById(canvasElement)
+      // Sets the width of the board
+      this.board.width = window.innerWidth / 1.7
+      // Sets the height of the board
+      this.board.height = window.innerHeight / 2
       // Gets the drawing context from the canvas element
       this.ctx = this.board.getContext("2d")
-      // Calculates the size of the html element and it's drawing scale accordingly
-      this.scale = {x: this.board.width / this.board.clientWidth , y:this.board.height / this.board.clientHeight}
-      // sets the drawing context's scale to the calculated value as shown in the previous line of code
-      this.ctx?.scale(this.scale.x, this.scale.y)
-  
       // A variable to hold the current mouse position
       this.mousePos = {x:0, y:0}
       // A variable to hold the last current mouse position
@@ -198,7 +196,6 @@ export class board {
 
     /**Draws the color bar to the canvas */
     private colorBar(): void {
-  
       if (this.ctx) {
         this.ctx.fillStyle = `rgb(${this.color.r}, ${this.color.g}, ${this.color.b})`
         this.ctx.fillRect(0, 0, this.board.clientWidth, this.board.clientHeight * .05)
@@ -208,14 +205,21 @@ export class board {
     /**Draws the line over the cursor */
     private drawOverCursor(): void {
       if(this.ctx){
+        // CHnages the draw Color
         this.ctx.strokeStyle = `rgb(${this.color.r}, ${this.color.g}, ${this.color.b})`
+        // Changes the draw width
         this.ctx.lineWidth = this.drawWidth
+        // Starts Drawing
         this.ctx.beginPath()
+        // sets the start pos to the last cursor pos
         this.ctx.moveTo(this.last.x, this.last.y)
+        // Sets the end pos to the current cursor pos
         this.ctx.lineTo(this.mousePos.x, this.mousePos.y)
+        // Draws the line according to the last 2 lines of codes location
         this.ctx.stroke()
+        // Ends drawing
         this.ctx.closePath()
-  
+        // Sets the last mouse pos to the current pos
         this.last.x = this.mousePos.x
         this.last.y = this.mousePos.y
       }
@@ -223,7 +227,6 @@ export class board {
 
     /**Draws lasers to the screen instead of the normal draw (Sets width to 10,000) */
     private lasers(): void {
-      // console.log(this.effect1_active)
       if (!this.effect1_active) {
         this.drawWidth += 10000;
         this.effect1_active = true;
