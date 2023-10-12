@@ -14,9 +14,9 @@ export class board {
         this.chaos_button = document.getElementById("chaos");
         // Gets the canvas element from html (id is passed through constructor)
         this.board = document.getElementById(canvasElement);
-        // Sets the width of the board
+        // Sets the width of the board based off the browers window size
         this.board.width = window.innerWidth / 1.7;
-        // Sets the height of the board
+        // Sets the height of the board based off the browsers window size
         this.board.height = window.innerHeight / 2;
         // Gets the drawing context from the canvas element
         this.ctx = this.board.getContext("2d");
